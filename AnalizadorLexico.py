@@ -49,10 +49,41 @@ t_CORIZQ = r'\['
 t_CORDER = r'\]'
 t_LLAIZQ = r'{'
 t_LLADER = r'}'
-#recorte
+
+# --------------------------------------------------
+# desarrollo de tag_inicio y final
+# no solucionado
+
+# def t_TAGINICIO(t):
+#  r'(<+[php]>)'
+# return t
+
+# tag final
+# --------------------------------------------------
+
+def t_TAGINICIO(t):
+    r'(<+[\?+php]+)'
+    return t
+
+def t_TAG_FINAL(t):
+    r'([\?>]+)'
+    return t
+
+def t_DECIMAL(t):
+    r'([0-9][.]]?[0-9]+)'
+    return t
+
+def t_VARIABLE(t):
+    r'([\$]+[A-Za-z]+)'
+    return t
+
+def t_SINO(t):
+    r'else'
+    return t
 
 #recorte
 
+#recorte
 text = ""
 for linea in archivo:
     text += linea

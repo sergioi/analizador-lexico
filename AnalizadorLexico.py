@@ -80,10 +80,67 @@ def t_VARIABLE(t):
 def t_SINO(t):
     r'else'
     return t
-
 #recorte
 
 #recorte
+
+def t_MAYORIZQ(t):
+    r'>>'
+    return t
+
+
+def t_DISTINTO(t):
+    r'!='
+    return t
+
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+
+def t_COMENTARIO(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+    print("Comentario de multiple linea")
+
+
+def t_comments_ONELine(t):
+    r'\/\/(.)*\n'
+    t.lexer.lineno += 1
+    print("Comentario de una linea")
+
+
+t_ignore = ' \t'
+
+
+def t_error(t):
+    global resultado_lexema
+    estado = "** Token no valido en la Linea {:4}".format(str(t.lineno)
+                                                                      )
+    resultado_lexema.append(estado)
+    t.lexer.skip(1)
+
+
+# Prueba de ingreso
+
+def prueba(data):
+    global resultado_lexema
+
+    analizador = lex.lex()
+    analizador.input(data)
+    while True:
+        tok = analizador.token()
+        if not tok:
+            break
+        # print("lexema de "+tok.type+" valor "+tok.value+" linea "tok.lineno)
+        estado = "Linea {:4} Tipo {:4} Valor {:4}".format(
+            str(tok.lineno), str(tok.type), str(tok.value))
+        resultado_lexema.append(estado)
+
+    return resultado_lexema
+
+
 text = ""
 for linea in archivo:
     text += linea

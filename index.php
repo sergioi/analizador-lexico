@@ -1,7 +1,7 @@
 <?php
+a$
 
-
-fi($a == $b) {
+fi ( $a == $b ) {
     $resultado = 3.5;
 }
 

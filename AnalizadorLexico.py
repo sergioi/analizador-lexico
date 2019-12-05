@@ -12,12 +12,12 @@ tokens = [
     # inicio y final
     'TAGINICIO', 'TAG_FINAL',
 
-    'IDENTIFICADOR', 'ENTERO', 'ASIGNAR', 'SUMA', 'RESTA', 'MULT', 'DIV', 'POTENCIA', 'MODULO',
+    'ENTERO', 'ASIGNAR', 'SUMA', 'RESTA', 'MULT', 'DIV', 'POTENCIA', 'MODULO',
     'MINUSMINUS', 'PLUSPLUS','PUNTOYCOMA','PUNTO','COMA','DECIMAL','VARIABLE','COMENTARIO',
     # Condiones
-    'SI', 'SINO', 'SIErr',
+    'SI', 'SINO',
     # Ciclos
-    'MIENTRAS', 'PARA',
+    'MIENTRAS', 'PARA', 'ECHO',
     # logica
     'AND', 'OR', 'NOT', 'MENORQUE', 'MENORIGUAL', 'MAYORQUE', 'MAYORIGUAL', 'IGUAL', 'DISTINTO',
     # Symbolos
@@ -80,9 +80,72 @@ def t_VARIABLE(t):
 def t_SINO(t):
     r'else'
     return t
-#recorte
 
-#recorte
+
+def t_SI(t):
+    r'if'
+    return t
+
+
+def t_RETURN(t):
+    r'return'
+    return t
+
+
+def t_VOID(t):
+    r'void'
+    return t
+
+
+def t_ECHO(t):
+    r'echo'
+    return t
+
+def t_MIENTRAS(t):
+    r'while'
+    return t
+
+
+def t_PARA(t):
+    r'for'
+    return t
+
+
+def t_ENTERO(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
+
+def t_NUMERAL(t):
+    r'\#'
+    return t
+
+
+def t_PLUSPLUS(t):
+    r'\+\+'
+    return t
+
+
+def t_MENORIGUAL(t):
+    r'<='
+    return t
+
+
+def t_MAYORIGUAL(t):
+    r'>='
+    return t
+
+
+def t_IGUAL(t):
+    r'=='
+    return t
+
+
+def t_MAYORDER(t):
+    r'<<'
+    return t
+
 
 def t_MAYORIZQ(t):
     r'>>'
@@ -141,8 +204,19 @@ def prueba(data):
     return resultado_lexema
 
 
+# abrir archivo
+analizador = lex.lex()
+path = "index.php"
+
+try:
+    archivo = open(path, 'r')
+except:
+    print("el archivo no se encontro")
+    quit()
+
 text = ""
 for linea in archivo:
     text += linea
 prueba(text)
 print('\n'.join(list(map(''.join, resultado_lexema)))) #AL IMPRIMIR LOS DATOS, ESTO LO ORDENA DE MANERA ESTRUCTURADA
+

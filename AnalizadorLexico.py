@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-# desarollo de aanalizardor lexico
-#liga https://github.com/GeovaniTuz/PythonU4and5
 
 import ply.lex as lex  # inportacion de librerias necesarias
 import re
+
+# desarollo de aanalizardor lexico
+# proyecto unidad 4
+# liga https://github.com/GeovaniTuz/PythonU4and5
 
 resultado_lexema = []
 
@@ -11,9 +13,18 @@ resultado_lexema = []
 tokens = [
     # inicio y final
     'TAGINICIO', 'TAG_FINAL',
-
-    'ENTERO', 'ASIGNAR', 'SUMA', 'RESTA', 'MULT', 'DIV', 'POTENCIA', 'MODULO',
-    'MINUSMINUS', 'PLUSPLUS','PUNTOYCOMA','PUNTO','COMA','DECIMAL','VARIABLE','COMENTARIO',
+    'ENTERO', 'ASIGNAR',
+    'SUMA',
+    'RESTA',
+    'MULT',
+    'DIV',
+    'POTENCIA',
+    'MODULO',
+    'MINUSMINUS',
+    'PLUSPLUS',
+    'PUNTOYCOMA',
+    'PUNTO',
+    'COMA', 'DECIMAL', 'VARIABLE', 'COMENTARIO',
     # Condiones
     'SI', 'SINO',
     # Ciclos
@@ -25,8 +36,10 @@ tokens = [
 ]
 
 # Reglas de Expresiones Regualres para token de Contexto simple
+
 #t_PUNTO = r'[+,-]?[[0-9]*[.]]?[0-9]+'
-#[+,-]?[[0-9]*[.]]?[0-9]+t__COMA = r'\,'
+
+# [+,-]?[[0-9]*[.]]?[0-9]+t__COMA = r'\,'
 t_PUNTOYCOMA = r';'
 t_SUMA = r'\+'
 t_RESTA = r'-'
@@ -61,21 +74,28 @@ t_LLADER = r'}'
 # tag final
 # --------------------------------------------------
 
+# palabras reservadas de PHP
+
+
 def t_TAGINICIO(t):
     r'(<+[\?+php]+)'
     return t
+
 
 def t_TAG_FINAL(t):
     r'([\?>]+)'
     return t
 
+
 def t_DECIMAL(t):
     r'([0-9][.]]?[0-9]+)'
     return t
 
+
 def t_VARIABLE(t):
     r'([\$]+[A-Za-z]+)'
     return t
+
 
 def t_SINO(t):
     r'else'
@@ -101,6 +121,7 @@ def t_ECHO(t):
     r'echo'
     return t
 
+
 def t_MIENTRAS(t):
     r'while'
     return t
@@ -120,6 +141,8 @@ def t_ENTERO(t):
 def t_NUMERAL(t):
     r'\#'
     return t
+
+# operacion logica
 
 
 def t_PLUSPLUS(t):
@@ -180,7 +203,7 @@ t_ignore = ' \t'
 def t_error(t):
     global resultado_lexema
     estado = "** Token no valido en la Linea {:4}".format(str(t.lineno)
-                                                                      )
+                                                          )
     resultado_lexema.append(estado)
     t.lexer.skip(1)
 
@@ -218,5 +241,5 @@ text = ""
 for linea in archivo:
     text += linea
 prueba(text)
-print('\n'.join(list(map(''.join, resultado_lexema)))) #AL IMPRIMIR LOS DATOS, ESTO LO ORDENA DE MANERA ESTRUCTURADA
-
+# AL IMPRIMIR LOS DATOS, ESTO LO ORDENA DE MANERA ESTRUCTURADA
+print('\n'.join(list(map(''.join, resultado_lexema))))
